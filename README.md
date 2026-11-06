@@ -1,8 +1,9 @@
 # 🏃‍♂️ RunBuddy  
-실시간 러닝 트래킹 & 기록 관리 안드로이드 앱
+실시간 러닝 트래킹 & AI 코스 추천 안드로이드 앱
 
 RunBuddy는 러닝 중 **거리, 페이스, 평균 페이스, 시간, 칼로리, 고도**를 실시간으로 측정하고  
-러닝 종료 후 **지도 기반 경로 시각화 및 기록 저장**까지 지원하는 안드로이드 러닝 트래킹 앱입니다.
+러닝 종료 후 **지도 기반 경로 시각화 및 기록 저장**까지 지원하며  
+**AI 챗봇과의 대화로 러닝 코스를 추천**받을 수 있는 안드로이드 러닝 앱입니다.
 
 ---
 
@@ -16,6 +17,15 @@ RunBuddy는 러닝 중 **거리, 페이스, 평균 페이스, 시간, 칼로리,
 - Chronometer 기반 운동 시간 측정
 - **MET 공식 기반 칼로리 실시간 계산**
 - **GPS 고도 정보 실시간 표시**
+- 러닝 중에도 측정이 끊기지 않도록 Foreground Service에서 위치 수집
+
+---
+
+### 🤖 AI 챗봇 코스 추천
+- OpenAI API 기반 러닝 코스 추천 챗봇
+- 대화에서 거리, 지역, 선호 조건 등 코스 추천에 필요한 정보를 읽어 코스 제안
+- 추천받은 코스를 지도에서 확인하고 러닝으로 바로 연결
+- AI 서버는 Render에 배포하여 앱과 연동
 
 ---
 
@@ -126,9 +136,12 @@ com.example.runbuddy
 | 지도 | Google Maps SDK |
 | 위치 | FusedLocationProviderClient |
 | 백그라운드 | Foreground Service |
-| 아키텍처 | Repository 패턴 |
+| 아키텍처 | MVVM, Repository 패턴 |
 | 상태 관리 | LiveData |
+| 비동기 | Coroutines / Flow |
 | 데이터 저장 | SharedPreferences |
+| AI | OpenAI API (코스 추천 챗봇) |
+| 서버 배포 | Render |
 | 음성 안내 | TextToSpeech |
 | 이미지 처리 | Canvas / Bitmap |
 | 권한 관리 | Runtime Permission |
@@ -164,6 +177,13 @@ com.example.runbuddy
 
 ---
 
+### 🤖 AI 코스 추천 처리
+- 사용자 대화에서 코스 추천에 필요한 정보를 읽어 OpenAI API에 전달
+- 응답을 앱 화면과 지도에 연결해 코스 안내
+- AI 서버는 Render에 배포해 앱에서 호출
+
+---
+
 ## 🚀 실행 방법
 
 1. Android Studio에서 프로젝트 열기
@@ -178,14 +198,7 @@ com.example.runbuddy
 ```xml
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
-
-## 📌 향후 개선 계획
-
-- 사용자 체중 설정 UI 제공
-- 러닝 통계 그래프 시각화
-- 목표 거리 / 목표 시간 설정 기능
-- 클라우드 기반 러닝 기록 동기화
-- Wear OS 연동 지원
+```
 
 ---
 
@@ -193,4 +206,4 @@ com.example.runbuddy
 
 - 이주영  
 - 김준하  
-- 서석현  
+- 서석현
